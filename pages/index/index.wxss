@@ -1,0 +1,56 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+.contact-wrap .contact-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 130rpx;
+  opacity: 0.9;
+  background: #fff;
+}
+
+.contact-wrap .icon-mask {
+  background: #000;
+  opacity: 0.9;
+}
+
+.contact-wrap .contact-btn:after {
+  border: none;
+}
+
+.contact-wrap .contact-btn .icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 0 auto;
+  margin-top: 20rpx;
+}
+
+.contact-wrap .contact-btn .text {
+  font-size: 22rpx;
+  text-align: center;
+}
+.navigator-hover {
+  color:blue;
+}
+.other-navigator-hover {
+  color:red;
+}
