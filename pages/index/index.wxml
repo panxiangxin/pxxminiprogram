@@ -1,22 +1,81 @@
+<wxs src='../../utils/tool.wxs' module='tool'/>
 <!--index.wxml-->
-<view class="container">
-  <!-- <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view> -->
-   <view class='contact-wrap'>
-        <button class="contact-btn" session-from='{"nickName":"{{userInfo.nickname}}","avatarUrl":"{{userInfo.avatar}}"}' open-type="contact">
-            <image class='icon' src='/images/icon/contact.png'></image>
-            <view class='text'>客服</view>
-        </button>
+<view class="container" wx:if="{{loading == 1}}">
+    <view class="search" bindtap="goSearch">
+            <image class="icon" src="/images/icon/search.png"></image>
+          <text class="txt">搜索, 共1000款图书</text>
+        </view>
+        <view class='banner-wrap' wx:if="{{banner.length > 0}}">
+        <swiper class="banner" indicator-dots="true" autoplay="{{autoplay}}" interval="3000" duration="1000">
+            <swiper-item wx:for="{{banner}}" wx:key="id">
+                <navigator url="/">
+                    <image src="{{tool.imgUrlFormat(item.imgUrl)}}" background-size="cover"></image>
+                </navigator>
+            </swiper-item>
+        </swiper>
     </view>
-    <view class="btn-area">
-      <navigator url="../app-auth/index" open-type="redirect" hover-class="other-navigator-hover">在当前页打开</navigator>
+    <view style="margin-top: 10rpx;">
+    <van-tabs>
+  <van-tab title="热门标签">
+    <view wx:if="{{ postTagLoading === 1 && bookTagLoading === 1}}">
+        <van-collapse value="{{ activeName }}" bind:change="onChange" accordion>
+            <van-collapse-item title="书籍标签" name="1">
+                <van-tag wx:if="{{hotBookTag.length > 0}}" wx:for="{{hotBookTag}}" wx:key="name" plain  style="margin-right: 10rpx;" type="primary">
+                {{item.name}}
+                </van-tag>
+            </van-collapse-item>
+            <van-collapse-item title="帖子标签" name="2">
+                 <view>
+                    <van-tag wx:if="{{hotPostTag.length > 0}}" wx:for="{{hotPostTag}}" wx:key="name" plain style="margin-right: 10rpx;" type="primary">
+                    {{item.name}}
+                    </van-tag>
+                </view>
+            </van-collapse-item>
+        </van-collapse>
+        </view>
+    <view class="loading" style="padding-top:30px; height:50px" wx:else>
+        <image class="img" src="/images/icon/loading.gif"></image>
+        <view class="text">加载中....</view>
     </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+  </van-tab>
+  <van-tab title="热门帖子">
+    <view style="padding-top: 10rpx;">
+        <van-skeleton
+            title
+            avatar
+            row="1"
+            loading="{{postLoading}}"
+            >
+            <view class="post-preview" wx:if="{{hotPost.length > 0}}" wx:for="{{hotPost}}" wx:key="id">
+               <image src="{{tool.imgUrlFormat(item.user.avatarUrl)}}"></image>
+               <view class="post-content">
+                 <view>
+                    <text>{{item.title}}</text>
+                 </view>
+                 <text class="post-info">{{item.commentCount}}个回复• </text>
+                 <text class="post-info">{{item.viewCount}}次浏览• </text>
+                 <text class="post-info">{{tool.dateFormat(item.gmtCreate,"yyyy-MM-dd hh:mm")}}</text>
+               </view>
+            </view>
+        </van-skeleton>
+    </view>
+  </van-tab>
+  <van-tab title="公告">
+    <view wx:if="{{announceLoading === 1}}">
+        <swiper class="announce" indicator-dots="true" autoplay="{{autoplay}}" interval="3000" duration="1000">
+            <swiper-item wx:if="{{announces.length > 0}}" wx:for="{{announces}}" wx:key="id">
+                    <van-panel title="{{item.title}}">
+                        <import src="../../lib/wxParse/wxParse.wxml"/>
+                        <template is="wxParse" data="{{wxParseData:askItemsArr[index]}}"/>
+                    </van-panel>
+            </swiper-item>
+        </swiper>
+    </view>
+  </van-tab>
+    </van-tabs>
+    </view>
+</view>
+<view class="loading" style="height:{{sysHeight}}px" wx:else>
+    <image class="img" src="/images/icon/loading.gif"></image>
+    <view class="text">加载中....</view>
 </view>

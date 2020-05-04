@@ -1,0 +1,29 @@
+<!--pages/ucenter/settings/index.wxml-->
+<view class="container">
+    <view class='edit-container'>
+        <view class="a-item">
+            <image class="icon" src="/images/icon/age.png"></image>
+            <input class='a-input' type="number" bindblur="bindinputAge" placeholder='年龄' value="{{age}}"></input>
+        </view>
+         <view class="a-item">
+            <image class="icon" src="/images/icon/bio.png"></image>
+            <input class='a-input' bindblur="bindinputBio" placeholder='个人介绍' value="{{bio}}"></input>
+        </view>
+         <view class="a-item">
+            <image class="icon" src="/images/icon/qq.png"></image>
+            <input class='a-input' bindblur="bindinputQQ" placeholder='qq' value="{{qq}}"></input>
+        </view>
+         <view class="a-item">
+            <image class="icon" src="/images/icon/stamps.png"></image>
+            <text class="a-input">{{stamps}}</text>
+        </view>
+        <view class="a-item">
+            <image class="icon" src="/images/icon/mail.png"></image>
+            <input class='a-input' bindblur="bindinputMail" placeholder='邮箱' value="{{mail}}"></input>
+        </view>
+    </view>
+    <view class='wrap-btn'>
+        <view wx:if="{{status == 0}}" class="btn-wrap disable}}">保存</view>
+        <view wx:else class="btn-wrap active" bindtap='saveInfo'>保存</view>
+    </view>
+</view>

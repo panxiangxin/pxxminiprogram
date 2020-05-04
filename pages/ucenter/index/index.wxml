@@ -1,0 +1,102 @@
+<!--pages/ucenter/index/index.wxml-->
+<view class="container">
+    <view class="userinfo">
+        <view class='head-wrap' wx:if="{{hasUserInfo == 0}}" bindtap='goAuth'>
+            <view class="no-login-avatar">
+                <view class='no-avatar'>
+                    <image class='avatar' src="/images/icon/default_avatar_big.png"></image>
+                </view>
+                <view class='btn-login'>点我登录</view>
+            </view>
+        </view>
+        <view class='head-wrap' wx:else bindtap='goProfile'>
+            <view class="head-l">
+                <view class='l'>
+                    <image class='avatar' src="{{userInfo.avatarUrl}}"></image>
+                </view>
+                <view class='r'>
+                    <view class='t'>
+                        <view class='name'>{{userInfo.userName}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="head-r">
+                <view class="arrow"></view>
+            </view>
+        </view>
+    </view>
+    <view class="order-container">
+        <view class='header' data-index='0' bindtap='toOrderListTap'>
+            <view class='top-title'>
+                <view class='left-line'></view>
+                <view class='text'>我的电子书</view>
+            </view>
+            <view class='see-more'>
+                <view class="text">查看全部电子书</view>
+                <view class="arrow"></view>
+            </view>
+        </view>
+        <view class='btn-container'>
+            <view class='icon-wrap' data-index='1' bindtap='toUserComment'>
+                <view class='order-icon-wrap'>
+                    <image class='order-icon' src='/images/icon/icon-pay-r.png'>
+                    </image>
+                </view>
+                <text class='order-txt'>我的回复</text>
+            </view>
+            <view class='icon-wrap' data-index='2' bindtap='toUserPost'>
+                <view class='order-icon-wrap'>
+                    <image class='order-icon' src='/images/icon/icon-delivery-r.png'>
+                    </image>
+                </view>
+                <text class='order-txt'>我的帖子</text>
+            </view>
+            <view class='icon-wrap' data-index='3' bindtap='toUserNotice'>
+                <view class='order-icon-wrap'>
+                    <image class='order-icon' src='/images/icon/icon-onroad-r.png'>
+                    </image>
+                    <view wx:if="{{userInfo.unReadCount > 0 }}" class='red-point'>{{userInfo.unReadCount}}</view>
+                </view>
+                <text class='order-txt'>我的通知</text>
+            </view>
+        </view>
+    </view>
+    <view class="li-wrap">
+        <view class="list" bindtap="toAddressList">
+            <view class="list-l">
+                <view class="icon">
+                    <image class="img" src="/images/icon/icon-address-r.png"></image>
+                </view>
+                <view class="text">爱好管理</view>
+            </view>
+            <view class="arrow"></view>
+        </view>
+    </view>
+    <view class="li-wrap">
+        <view class="list" bindtap="toFootprint">
+            <view class="list-l">
+                <view class="icon">
+                    <image class="img" src="/images/icon/icon-footprint-r.png"></image>
+                </view>
+                <view class="text">我的足迹</view>
+            </view>
+            <view class="arrow"></view>
+        </view>
+        <view class="list" bindtap="toAbout">
+            <view class="list-l">
+                <view class="icon">
+                    <image class="img" src="/images/icon/icon-about-r.png"></image>
+                </view>
+                <view class="text">关于我们</view>
+            </view>
+            <view class="arrow"></view>
+        </view>
+    </view>
+    <view class="company">
+        <view class="c-wrap">
+            <view class="text">PXX EBook</view>
+            <view class="line"></view>
+        </view>
+        <view class="tip">毕业设计微信小程序</view>
+    </view>
+</view>

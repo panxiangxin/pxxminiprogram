@@ -1,0 +1,65 @@
+<!--pages/posts/index.wxml-->
+<wxs src='../../utils/tool.wxs' module='tool' />
+<van-search
+  value="{{ value }}"
+  placeholder="请输入搜索关键词"
+  use-action-slot
+  bind:change="onChange"
+  bind:search="onSearch"
+>
+  <view slot="action" bind:tap="onClick">搜索</view>
+</van-search>
+<view class="container">
+  <view class='contact-wrap'>
+        <button bindtap="publish" class="contact-btn">
+            <image class='icon' src='/images/icon/edit.png'></image>
+            <view class='text'>发帖</view>
+        </button>
+  </view>
+    <view class="catalog">
+        <scroll-view class="nav" scroll-y="true">
+            <view class="item {{ nowId == 0 ?'active' : ''}}" data-name="new" bindtap="switchCate" data-id="0">最新</view>
+            <view class="item {{ nowId == 1 ?'active' : ''}}" data-name="hot" bindtap="switchCate" data-id="1">最热</view>
+            <view class="item {{ nowId == 2 ?'active' : ''}}" data-name="hot7" bindtap="switchCate" data-id="2">七天最热</view>
+            <view class="item {{ nowId == 3 ?'active' : ''}}" data-name="no" bindtap="switchCate" data-id="3">消灭零回复</view>
+        </scroll-view>
+        <scroll-view class="cate" scroll-y="true" bindscrolltolower="onBottom">
+            <block wx:if="{{loading == 0}}">
+                <view class='list-wrap clearfix'>
+                    <view wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+                        <navigator hover-class='none' class='navi-url' url="/pages/post/post?id={{item.id}}">
+                            <view style="padding-top: 10rpx;">
+                              <van-skeleton
+                                title
+                                avatar
+                                row="1"
+                                loading="{{loading == 1}}"
+                                >
+                                <view class="post-preview">
+                                  <image src="{{tool.imgUrlFormat(item.user.avatarUrl)}}"></image>
+                                  <view class="post-content">
+                                    <view>
+                                        <text>{{item.title}}</text>
+                                    </view>
+                                    <text class="post-info">{{item.commentCount}}个回复• </text>
+                                    <text class="post-info">{{item.viewCount}}次浏览• </text>
+                                    <text class="post-info">{{tool.dateFormat(item.gmtCreate,"yyyy-MM-dd hh:mm")}}</text>
+                                  </view>
+                                </view>
+                              </van-skeleton>
+                          </view>
+                        </navigator>
+                    </view>
+                </view>
+                <view class="show-more" bindtap="onBottom" wx:if="{{showNoMore == 1}}">加载更多</view>
+                <view class="no-more" wx:else>没有更多帖子了</view>
+            </block>
+            <block wx:else>
+                <view class="loading-wrap">
+                    <image class="img" src="/images/icon/loading.gif"></image>
+                    <view class="text">正在加载...</view>
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+</view>

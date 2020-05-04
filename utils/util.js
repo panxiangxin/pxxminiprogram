@@ -35,7 +35,6 @@ function formatTimeNum(number, format) {
   return format;
 }
 function testMobile(num) {
-  console.log
   var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1})|(16[0-9]{1})|(19[0-9]{1}))+\d{8})$/;
   if (num.length == 0) {
       wx.showToast({
@@ -59,45 +58,77 @@ function testMobile(num) {
       return true;
   }
 }
-function request(url, data = {}, method = "GET") {
-    console.log(url)
+function testMail(mail) {
+    var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if(mail.length === 0) {
+        return true;
+    } else if(!reg.test(mail)) {
+        wx.showToast({
+          title: '邮箱输入有误！',
+          image: '/images/icon/icon_error.png',
+        })
+        return false;
+    }
+    return true;
+}
+function testQQ(qq) {
+    var reg = /^[1-9][0-9]{4,}$/;
+    if(qq.length === 0) {
+        return true;
+    } else if(!reg.test(qq)) {
+        wx.showToast({
+          title: 'QQ输入有误！',
+          image: '/images/icon/icon_error.png',
+        })
+        return false;
+    }
+    return true;
+}
+function goAuth() {
+    wx.navigateTo({
+        url: '/pages/app-auth/index',
+    });
+}
+function request(url, data = {}, method = "GET", contentType="application/json") {
   return new Promise(function(resolve, reject) {
       wx.request({
           url: url,
           data: data,
           method: method,
           header: {
-              'Content-Type': 'application/json',
+              'Content-Type': contentType,
               'token': wx.getStorageSync('token')
           },
           success: function(res) {
               if (res.statusCode == 200) {
-                  if (res.data.errno == 401) {
+                  if (res.data.code === 40004 || res.data.code === 40007) {
                       //需要登录后才可以操作
-                      let code = null;
-                      return login().then((res) => {
-                          code = res.code;
-                          return getUserInfo();
-                      }).then((userInfo) => {
-                          //登录远程服务器
-                          request(api.AuthLoginByWeixin, {
-                              code: code,
-                              userInfo: userInfo
-                          }, 'POST').then(res => {
-                              if (res.errno === 0) {
-                                  //存储用户信息
-                                  wx.setStorageSync('userInfo', res.data.userInfo);
-                                  wx.setStorageSync('token', res.data.token);
-                                  resolve(res);
-                              } else {
-                                  reject(res);
-                              }
-                          }).catch((err) => {
-                              reject(err);
-                          });
-                      }).catch((err) => {
-                          reject(err);
-                      })
+                      showErrorToast('token过期 重新登录！')
+                        goAuth();
+                    //   let code = null;
+                    //   return login().then((res) => {
+                    //       code = res.code;
+                    //       return getUserInfo();
+                    //   }).then((userInfo) => {
+                    //       //登录远程服务器
+                    //       request(api.AuthLoginByWeiXin, {
+                    //           code: code,
+                    //           userInfo: userInfo
+                    //       }, 'POST').then(res => {
+                    //           if (res.success) {
+                    //               //存储用户信息
+                    //               wx.setStorageSync('userInfo', res.data.userInfo);
+                    //               wx.setStorageSync('token', res.data.token);
+                    //               resolve(res);
+                    //           } else {
+                    //               reject(res);
+                    //           }
+                    //       }).catch((err) => {
+                    //           reject(err);
+                    //       });
+                    //   }).catch((err) => {
+                    //       reject(err);
+                    //   })
                   } else {
                       resolve(res.data);
                   }
@@ -112,6 +143,7 @@ function request(url, data = {}, method = "GET") {
       })
   });
 }
+
 /**
  * 检查微信会话是否过期
  */
@@ -200,6 +232,9 @@ function showSuccessToast(msg) {
 module.exports = {
     formatTime: formatTime,
     formatTimeNum: formatTimeNum,
+    testMobile,
+    testMail,
+    testQQ,
     request,
     redirect,
     checkSession,

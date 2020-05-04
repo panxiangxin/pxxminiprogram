@@ -1,0 +1,135 @@
+<!--pages/books/books.wxml-->
+<wxs src='../../utils/tool.wxs' module='tool'/>
+<view class="container" wx:if="{{loading == 1}}">
+    <view class='banner-wrap'>
+        <block wx:if="{{goods.imgUrl != '' && goods.imgUrl != null}}">
+        <swiper bindchange="bindchange" class="banner banner-style1" indicator-dots="{{false}}" autoplay="{{autoplay}}" interval="3000" duration="1000">
+                <swiper-item class="item">
+                    <image bindtap="previewImage" data-src="{{tool.imgUrlFormat(goods.imgUrl)}}" src="{{tool.imgUrlFormat(goods.imgUrl)}}" class="slide-image" mode="aspectFill"/>
+                   </swiper-item>
+            </swiper> 
+        </block>
+         <block wx:else>
+            <view class='no-image'>
+                <image class='img' src='/images/icon/no-img.png'></image>
+            </view>
+        </block>
+    </view>
+    <view class='info-wrap'>
+        <view class='l'>
+            <view class='goods-title'>{{goods.bookName}}</view>
+            <view class='goods-intro'>{{goods.tags}}</view>
+        </view>
+        <view class='r'>
+            <view bindtap="shareTo" class='share'>
+                <image class='icon' src='/images/icon/share.png'></image>
+                <view class='text'>分享</view>
+            </view>
+        </view>
+    </view>
+    <view class='price-info'>
+        <view class="l">
+            <view class="now-price">
+                <view class="sym">¥</view>
+                <view class="num">{{goods.bookStamps}}</view>
+            </view>
+        </view>
+        <view class="r">
+            <view class='stock'>大小:{{tool.fileSizeFormat(goods.bookSize)}}</view>
+        </view>
+    </view>
+    <view class='section-nav' bindtap="switchAttrPop">
+        <view class="t">章节目录</view>
+        <view class="arrow"></view>
+    </view>
+    <view class='details-wrap'>
+        <view class="title">商品详情</view>
+        <view class="show">
+            <view class='details-image-wrap'>
+                <text class="bio">{{goods.bio}}</text>
+            </view>
+        </view>
+    </view>
+     <view class='comments-wrap'>
+        <view class="title">书籍评论</view>
+        <comment types="{{1}}" userInfo="{{userInfo}}" topid="{{id}}"></comment>
+    </view>
+    <view class="attr-pop-box" hidden="{{!openAttr}}" bindtap='closeAttr'>
+        <view wx:if="{{loadingChapters == 1}}" class="attr-pop" catchtap="handleTap">
+            <view class="close" catchtap="closeAttr">
+                <image class="icon" src="/images/icon/icon-close.png"></image>
+            </view>
+            <swiper class="tab-right" style='background:{{bgColor}};' vertical="true" autoplay="true" circular="true" interval="2000" display-multiple-items='4'>
+        <view class="right-item">
+        <block wx:for-index="idx" wx:for='{{goodsChapters}}' wx:key="item">
+          <swiper-item>
+            <view class='content-item'>
+              <text class='name'>{{item}}</text>
+            </view>
+          </swiper-item>
+        </block> 
+      </view>
+        </swiper>
+        </view>
+        <view wx:else class="attr-pop" catchtap="handleTap">
+            <view class="close" catchtap="closeAttr">
+                <image class="icon" src="/images/icon/icon-close.png"></image>
+            </view>
+            <view class="loading" style="height:{{sysHeight}}px">
+              <image class="img" src="/images/icon/loading.gif"></image>
+              <view class="text">海风吹啊吹</view>
+            </view>
+        </view>
+    </view>
+    <view class="cart-add-box">
+        <block>
+          <view class='left-icon form-button' bindtap='goIndexPage'>
+                <form bindsubmit="saveUserId" report-submit="true">
+                    <button bindtap='goIndexPage' formType="submit" class='index-btn' hover-class="none">
+                        <image class='icon' src='/images/nav/icon-index-b.png'></image>
+                        <view class='icon-text'>主页</view>
+                    </button>
+                </form>
+            </view>
+            <block>
+                <view class="to-cart-btn" wx:if="{{!goods.hasBought}}" bindtap='buyBook'>立即购买</view>
+                <view class="to-pay-btn" bindtap='download' wx:else>立即下载</view>
+            </block>
+        </block>
+    </view>
+    <view class="dialog {{ showShareDialog ? 'dialog_show' : '' }}">
+        <view class="dialog-mask2" bindtap="hideDialog"></view>
+        <view class="dialog-fixed dialog-share">
+            <view class="share-wrap">
+                <view class='content'>
+                    <view class="share-block">
+                        <button class='block share-btn' hover-class="none" open-type='share'>
+                            <image class="img" src="/images/icon/weixin.png"></image>
+                            <view class="text">发给好友/发到微信群</view>
+                        </button>
+                        <view class="block" catchtap="createShareImage">
+                            <image class="img" src="/images/icon/pyq.png"></image>
+                            <view class="text">保存分享图发朋友圈</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="cancel" bindtap="hideDialog">取消</view>
+        </view>
+    </view>
+    <view class="dialog {{ boughtDialog ? 'dialog_show' : '' }}">
+        <view class="dialog-mask2" bindtap="hideDialog1"></view>
+        <view class="dialog-fixed dialog-share">
+            <view class="book-info-buy">
+                该电子书需要<text>{{goods.bookStamps}}</text>积分
+                您现在拥有<text>{{userInfo.stamps}}</text>积分
+            </view>
+            <view class="cancel" bindtap="buy">确定购买</view>
+            <view class="cancel" bindtap="hideDialog1">取消购买</view>
+        </view>
+    </view>
+</view>
+<view class="loading" style="height:{{sysHeight}}px" wx:else>
+    <image class="img" src="/images/icon/loading.gif"></image>
+    <view class="text">海风吹啊吹</view>
+</view>

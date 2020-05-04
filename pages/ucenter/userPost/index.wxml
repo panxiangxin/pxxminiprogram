@@ -1,0 +1,33 @@
+<!--pages/category/index.wxml-->
+<wxs src='../../../utils/tool.wxs' module='tool'/>
+<view class="container">
+    <view class="catalog">
+        <scroll-view class="cate" scroll-y="true">
+            <block wx:if="{{loading == 1}}">
+                <view class='list-wrap clearfix'>
+                    <view class="goods-box" wx:for="{{posts}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+                         <navigator hover-class='none' url="/pages/post/post?id={{item.id}}">
+                          <view class="post-preview">
+                                  <image src="{{tool.imgUrlFormat(userInfo.avatarUrl)}}"></image>
+                                  <view class="post-content">
+                                    <view>
+                                        <text>{{item.title}}</text>
+                                    </view>
+                                    <text class="post-info">浏览次数:{{item.viewCount}}·发布时间:</text>
+                                    <text class="post-info">{{tool.dateFormat(item.gmtCreate)}} </text>
+                                  </view>
+                                </view>
+                         </navigator>
+                    </view>
+                </view>
+            </block>
+            <block wx:else>
+                <view class="loading-wrap">
+                    <image class="img" src="/images/icon/loading.gif"></image>
+                    <view class="text">正在加载...</view>
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+</view>
+

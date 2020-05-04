@@ -1,0 +1,50 @@
+<!--pages/post/post.wxml-->
+<wxs src='../../utils/tool.wxs' module='tool'/>
+<view class="container" wx:if="{{loading == 1}}">
+  <view class="post-title">
+    <text class="title">{{post.title}}</text>
+  </view>
+  <view class="info">
+    <van-row>
+      <van-col span="12">
+        <image class="info-image" src="{{tool.imgUrlFormat(post.user.avatarUrl)}}"></image>
+        <text class="info-name">{{post.user.userName}}</text>
+      </van-col>
+      <van-col span="12">
+        <text class="info-time">{{tool.dateFormat(post.gmtCreate)}}</text>
+      </van-col>
+    </van-row>
+  </view>
+  <view class="post-desc">
+   <import src="../../lib/wxParse/wxParse.wxml" />
+    <template is="wxParse" data="{{wxParseData:postDesc.nodes}}" />
+  </view>
+  <view>
+   <view>
+        <van-collapse value="{{ activeName }}" bind:change="onChange" accordion>
+            <van-collapse-item title="相关标签" name="1">
+                 <view>
+                    <van-tag wx:if="{{tags.length > 0}}" wx:for="{{tags}}" wx:key="item" plain style="margin-right: 10rpx;" type="primary">
+                    {{item}}
+                    </van-tag>
+                </view>
+            </van-collapse-item>
+            <van-collapse-item title="相关帖子" name="2">
+                 <view>
+                    <van-tag wx:if="{{related.length > 0}}" wx:for="{{related}}" wx:key="id" plain style="margin-right: 10rpx;" type="primary">
+                    {{item.title}}
+                    </van-tag>
+                </view>
+            </van-collapse-item>
+        </van-collapse>
+        </view>
+  </view>
+  <view class='comments-wrap'>
+        <view class="title">帖子评论</view>
+        <comment types="{{3}}" userInfo="{{userInfo}}" topid="{{id}}"></comment>
+    </view>
+</view>
+<view class="loading" style="height:{{sysHeight}}px" wx:else>
+    <image class="img" src="/images/icon/loading.gif"></image>
+    <view class="text">努力加载中...</view>
+</view>

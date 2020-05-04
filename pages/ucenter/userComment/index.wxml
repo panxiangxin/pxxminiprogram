@@ -1,0 +1,77 @@
+<!--pages/category/index.wxml-->
+<wxs src='../../../utils/tool.wxs' module='tool'/>
+<view class="container">
+    <view class="catalog">
+        <scroll-view class="nav" scroll-y="true">
+            <view class="item {{ nowId == 1 ?'active' : ''}}" bindtap="switchCate" data-id="1">书籍评论</view>
+            <view class="item {{ nowId == 2 ?'active' : ''}}" bindtap="switchCate" data-id="2">书籍二级评论</view>
+            <view class="item {{ nowId == 3 ?'active' : ''}}" bindtap="switchCate" data-id="3">帖子评论</view>
+            <view class="item {{ nowId == 4 ?'active' : ''}}" bindtap="switchCate" data-id="4">帖子二级评论</view>
+        </scroll-view>
+        <scroll-view class="cate" scroll-y="true">
+            <block wx:if="{{loading == 1}}">
+                <view class='list-wrap clearfix'>
+                    <view class="goods-box" wx:for="{{filterComments}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+                        <navigator hover-class='none' wx:if="{{item.type == 1}}" url="/pages/books/books?id={{item.commentBook.id}}">
+                          <view class="post-preview">
+                                  <image src="{{tool.imgUrlFormat(item.commentBook.imgUrl)}}"></image>
+                                  <view class="post-content">
+                                    <view>
+                                        <text>我的评论：{{item.content}}</text>
+                                    </view>
+                                    <text class="post-info">评论图书{{item.commentBook.bookName}}</text>
+                                    <text class="post-info">{{tool.dateFormat(item.gmtCreate)}} </text>
+                                  </view>
+                                </view>
+                        </navigator>
+                         <navigator hover-class='none' wx:if="{{item.type == 2}}" url="/pages/books/books?id={{item.commentBook.id}}">
+                          <view class="post-preview">
+                                  <image src="{{tool.imgUrlFormat(item.commentBook.imgUrl)}}"></image>
+                                  <view class="post-content">
+                                    <view>
+                                        <text>我的评论：{{item.content}}</text>
+                                    </view>
+                                    <text class="post-info">在图书：{{item.commentBook.bookName}}</text>
+                                    <text class="post-info">回复：{{item.receiver.userName}}</text>
+                                    <text class="post-info">回复评论：{{item.comment.content}}</text>
+                                    <text class="post-info">{{tool.dateFormat(item.gmtCreate)}} </text>
+                                  </view>
+                                </view>
+                         </navigator>
+                         <navigator hover-class='none' wx:if="{{item.type == 3}}" url="/pages/post/post?id={{item.commentPost.id}}">
+                          <view class="post-preview">
+                                  <view class="post-content">
+                                    <view>
+                                        <text>我的评论：{{item.content}}</text>
+                                    </view>
+                                    <text class="post-info">评论帖子：{{item.commentPost.title}}</text>
+                                    <text class="post-info">{{tool.dateFormat(item.gmtCreate)}} </text>
+                                  </view>
+                                </view>
+                         </navigator>
+                         <navigator hover-class='none' wx:if="{{item.type == 4}}" url="/pages/post/post?id={{item.commentPost.id}}">
+                          <view class="post-preview">
+                                  <view class="post-content">
+                                    <view>
+                                        <text>我的评论：{{item.content}}</text>
+                                    </view>
+                                    <text class="post-info">在帖子：{{item.commentPost.title}}</text>
+                                    <text class="post-info">回复用户：{{item.receiver.userName}}</text>
+                                    <text class="post-info">回复评论：{{item.comment.content}}</text>
+                                    <text class="post-info">{{tool.dateFormat(item.gmtCreate)}} </text>
+                                  </view>
+                                </view>
+                         </navigator>
+                    </view>
+                </view>
+            </block>
+            <block wx:else>
+                <view class="loading-wrap">
+                    <image class="img" src="/images/icon/loading.gif"></image>
+                    <view class="text">正在加载...</view>
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+</view>
+

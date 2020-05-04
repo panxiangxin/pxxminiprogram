@@ -1,6 +1,5 @@
 // pages/app-auth/index.js
 import { showErrorToast, redirect } from '../../utils/util.js';
-import api from '../../config/api.js';
 import { loginByWeixin } from '../../services/user.js';
 
 const app = getApp()
@@ -33,16 +32,16 @@ Page({
    */
   onShow: function () {
     let userInfo = wx.getStorageSync('userInfo');
-    if(userInfo != '') {
-      wx.navigateBack()
-  };
+  //   if(userInfo != '') {
+  //     wx.navigateBack()
+  // };
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
     loginByWeixin().then(res => {
         app.globalData.userInfo = res.data.userInfo;
         app.globalData.token = res.data.token;
-        redirect('/pages/index/index')
+        wx.navigateBack()
     }).catch(() => {});
 },
 goBack:function(){
@@ -75,10 +74,6 @@ goBack:function(){
   onReachBottom: function () {
 
   },
-
-  /**
-   * 用户点击右上角分享
-   */
   onShareAppMessage: function () {
 
   }

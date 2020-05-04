@@ -1,0 +1,31 @@
+<view class="container" wx:if="{{loading == 1}}">
+    <view class='edit-container'>
+        <view class="a-item">
+            <image class="icon" src="/images/icon/age.png"></image>
+            <input class='a-input' bindblur="bindinputTitle" placeholder='帖子标题' value="{{title}}"></input>
+        </view>
+         <view class="a-item">
+            <image class="icon" src="/images/icon/bio.png"></image>
+            <input class='a-input' bindblur="bindinputDesc" placeholder='帖子内容' value="{{desc}}"></input>
+        </view>
+        <view class="a-item">
+            <image class="icon" src="/images/icon/bio.png"></image>
+            <input class='a-input' bindblur="bindinputTag" placeholder='帖子标签' value="{{tags}}"></input>
+         </view>
+       <van-tabs>
+         <van-tab wx:for="{{allTags}}" wx:key="categoryName" title="{{item.categoryName}}">
+            <van-tag bindtap="selectTag" data-name="{{tag}}"
+            style="margin-right: 10rpx;" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="tag" plain type="primary">
+            {{tag}}</van-tag>
+         </van-tab>
+       </van-tabs>
+    </view>
+    <view class='wrap-btn'>
+        <view wx:if="{{status == 0}}" class="btn-wrap disable}}">发布</view>
+        <view wx:else class="btn-wrap active" bindtap='saveInfo'>发布</view>
+    </view>
+</view>
+<view class="loading" style="height:{{sysHeight}}px" wx:else>
+    <image class="img" src="/images/icon/loading.gif"></image>
+    <view class="text">加载中....</view>
+</view>

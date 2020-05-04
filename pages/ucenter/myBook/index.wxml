@@ -1,0 +1,35 @@
+<!--pages/ucenter/myBook/index.wxml-->
+<wxs src='../../../utils/tool.wxs' module='tool'/>
+<view class="catalog">
+  <scroll-view class="cate" scroll-y="true" bindscrolltolower="onBottom">
+            <block wx:if="{{loading == 1}}">
+                <view class='list-wrap clearfix'>
+                    <view class="goods-box {{(index+1)%2 == 0?'no-margin':''}}" wx:for="{{userBooks}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+                        <navigator hover-class='none' class='navi-url' url="/pages/books/books?id={{item.id}}">
+                            <view class="box">
+                                <image src="{{tool.imgUrlFormat(item.imgUrl)}}" class="image">
+                                </image>
+                            </view>
+                            <view class="goods-info {{item.goods_number <= 0?'fast-out-status':''}}">
+                                <view class="goods-title">{{item.bookName}}</view>
+                                <view class="goods-intro">{{item.author}}</view>
+                                <view class='price-container'>
+                                    <view class='l'>
+                                        <view class='h'>￥{{item.bookStamps}}</view>
+                                    </view>
+                                </view>
+                            </view>
+                        </navigator>
+                    </view>
+                </view>
+                <view class="show-more" bindtap="onBottom" wx:if="{{showNoMore == 1}}">加载更多</view>
+                <view class="no-more" wx:else>没有更多图书了</view>
+            </block>
+            <block wx:else>
+                <view class="loading-wrap">
+                    <image class="img" src="/images/icon/loading.gif"></image>
+                    <view class="text">正在加载...</view>
+                </view>
+            </block>
+  </scroll-view>
+</view>

@@ -1,0 +1,52 @@
+<!--pages/category/index.wxml-->
+<wxs src='../../utils/tool.wxs' module='tool'/>
+<view class="container">
+    <view class="search">
+        <navigator url="/pages/search/search" class="input">
+            <image class="icon" src="/images/icon/search.png"></image>
+            <text class="txt">搜索, 共{{goodsCount}}款图书</text>
+        </navigator>
+    </view>
+    <view class="catalog">
+        <scroll-view class="nav" scroll-y="true">
+            <view class="item {{ nowId == 0 ?'active' : ''}}" data-name="全部" bindtap="switchCate" data-id="0">全部</view>
+            <view class="item {{ nowId == 1 ?'active' : ''}}" data-name="文学" bindtap="switchCate" data-id="1">文学</view>
+            <view class="item {{ nowId == 2 ?'active' : ''}}" data-name="流行" bindtap="switchCate" data-id="2">流行</view>
+            <view class="item {{ nowId == 3 ?'active' : ''}}" data-name="文化" bindtap="switchCate" data-id="3">文化</view>
+            <view class="item {{ nowId == 4 ?'active' : ''}}" data-name="生活" bindtap="switchCate" data-id="4">生活</view>
+            <view class="item {{ nowId == 5 ?'active' : ''}}" data-name="经管" bindtap="switchCate" data-id="5">经管</view>
+            <view class="item {{ nowId == 6 ?'active' : ''}}" data-name="科技" bindtap="switchCate" data-id="6">科技</view>
+        </scroll-view>
+        <scroll-view class="cate" scroll-y="true" bindscrolltolower="onBottom">
+            <block wx:if="{{loading == 0}}">
+                <view class='list-wrap clearfix'>
+                    <view class="goods-box {{(index+1)%2 == 0?'no-margin':''}}" wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+                        <navigator hover-class='none' class='navi-url' url="/pages/books/books?id={{item.id}}">
+                            <view class="box">
+                                <image src="{{tool.imgUrlFormat(item.imgUrl)}}" class="image">
+                                </image>
+                            </view>
+                            <view class="goods-info {{item.goods_number <= 0?'fast-out-status':''}}">
+                                <view class="goods-title">{{item.bookName}}</view>
+                                <view class="goods-intro">{{item.author}}</view>
+                                <view class='price-container'>
+                                    <view class='l'>
+                                        <view class='h'>￥{{item.bookStamps}}</view>
+                                    </view>
+                                </view>
+                            </view>
+                        </navigator>
+                    </view>
+                </view>
+                <view class="show-more" bindtap="onBottom" wx:if="{{showNoMore == 1}}">加载更多</view>
+                <view class="no-more" wx:else>没有更多商品了</view>
+            </block>
+            <block wx:else>
+                <view class="loading-wrap">
+                    <image class="img" src="/images/icon/loading.gif"></image>
+                    <view class="text">正在加载...</view>
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+</view>

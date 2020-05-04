@@ -1,0 +1,71 @@
+<wxs src='../utils/tool.wxs' module='tool'/>
+<view>
+   <van-cell-group>
+        <van-field
+          bind:change="inputTopicEdit"
+          value="{{inputCommentTopic}}"
+          label="评论"
+           type="textarea"
+           placeholder="请输入评论"
+           autosize
+          border="{{ true }}"
+        />
+        <view style="margin-top: 30rpx;">
+        <van-button size="small" class="btn-publish" bindtap="commitCommentOne" round type="info">评论</van-button>
+        </view>
+      </van-cell-group>
+</view>
+<view class="container" wx:if="{{loadingComments == 1}}">
+  <view class="comment" wx:for="{{comments}}" wx:for-item="item" wx:key="id">
+    <view class="info">
+      <image class="avatar" src="{{tool.imgUrlFormat(item.commentUser.avatarUrl)}}"></image>
+      <view class="right">
+        <view class="name">{{item.commentUser.userName}}</view>
+        <view class="date">{{tool.dateFormat(item.gmtCreate,"yyyy-MM-dd hh:mm")}}</view>
+      </view>
+    </view>
+    <view class="content">{{item.content}}</view>
+    <view class="control">
+      <view class="comment-reply" bindtap="showCommentInput" data-item="{{item}}">
+        <view>回复</view>
+      </view>
+    </view>
+    <view class="reply">
+      <view class="item" wx:for="{{item.reply}}" wx:for-item="reply" wx:key="id">
+        <view class="reply-content">
+            <view class="from-name">{{reply.commentUser.userName}}: </view>
+            <view class="to-name">@{{reply.recevier.userName}}</view>
+            <view>{{reply.content}}</view>
+        </view>
+        <view class="reply-bottom">
+            <view>{{ tool.dateFormat(reply.gmtCreate,"yyyy-MM-dd hh:mm")}}</view>
+              <view class="reply-text" bindtap="showCommentInput" data-item="{{item}}" data-reply="{{reply}}">
+              <view>回复</view>
+            </view>
+        </view>
+      </view>
+      <view bindtap="showCommentInput" data-item="{{item}}" class="write-reply" wx:if="{{item.reply.length > 0}}">
+        <view class="add-comment">添加新评论</view>
+      </view>
+    </view>
+  </view>
+    <van-popup show="{{ show }}" position="bottom" custom-style="height: 20%;" bind:close="onClose">
+      <van-cell-group>
+        <van-field
+          bind:change="inputEdit"
+          value="{{inputComment}}"
+          label="评论"
+           type="textarea"
+           placeholder="请输入评论"
+           autosize
+          border="{{ true }}"
+        />
+        <view style="margin-top: 30rpx;">
+        <van-button size="small" class="btn-publish" bindtap="commitComment" round type="info">评论</van-button>
+        </view>
+      </van-cell-group>
+    </van-popup>
+    <view class="show-more" bindtap="onBottom" wx:if="{{showNoMore == 1}}">加载更多</view>
+      <view class="no-more" wx:else>没有更多评论了</view>
+</view>
+

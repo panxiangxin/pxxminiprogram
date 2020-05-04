@@ -1,0 +1,185 @@
+.container {
+  padding: 0 10px;
+  box-sizing: border-box;
+  color: #999;
+}
+.container .comment {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: 1px solid;
+}
+.container .info {
+      display: flex;
+      align-items: center;
+}
+.container .info .avatar {
+        width: 60rpx;
+        height: 60rpx;
+        border-radius: 50%;
+      }
+.container .info .right {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+}
+.container .info .right .name {
+          font-size: 35rpx;
+          margin-bottom: 15rpx;
+          font-weight: 500;
+        }
+.container .info .right .date {
+          font-size: 12px;
+        }
+.comment .content {
+      font-size: 16px;
+      line-height: 20px;
+      padding: 10px 0;
+}
+.comment .control {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+}
+.comment .control .like {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        cursor: pointer;
+}
+.comment .control .like .iconfont {
+          font-size: 14px;
+          margin-right: 5px;
+}
+.comment .control .comment-reply {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+}
+.comment .reply {
+      margin: 10px 0;
+      border-left: 2px solid;
+}
+.comment .reply .item {
+        margin: 0 10px;
+        padding: 10px 0;
+        border-bottom: 1px dashed;
+}
+.comment .reply .item .reply-content {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+}
+.comment .reply .item .reply-content .to-name {
+            margin-left: 5px;
+            margin-right: 5px;
+}
+.comment .reply .item .reply-bottom {
+          display: flex;
+          align-items: center;
+          margin-top: 6px;
+          font-size: 12px;
+}
+.comment .reply .item .reply-bottom .reply-text {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+            cursor: pointer;       
+}
+.comment .reply .write-reply {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        padding: 10px;
+        cursor: pointer;
+}
+.comment .reply .input-wrapper {
+        padding: 10px;
+}
+.comment .reply .input-wrapper .btn-control {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          padding-top: 10px;
+}
+.comment .reply .input-wrapper .btn-control .cancel {
+            font-size: 16px;
+            margin-right: 20px;
+            cursor: pointer;
+          }
+.comment .reply .input-wrapper .btn-control .confirm {
+            font-size: 16px;
+}
+.attr-pop-box {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 8;
+  bottom: 0;
+  /* display: none; */
+}
+.attr-pop {
+  width: 100%;
+  height: auto;
+  /* max-height: 780rpx; */
+  padding: 30rpx 30rpx 40rpx;
+  background: #fff;
+  position: fixed;
+  z-index: 9;
+  bottom: 100rpx;
+  box-sizing: border-box;
+}
+
+.attr-pop .temp-tip {
+  margin: 60rpx 0 30rpx 0;
+  background: #ffe49c;
+  font-size: 24rpx;
+  padding: 20rpx;
+}
+
+.attr-pop .close {
+  position: absolute;
+  width: 48rpx;
+  height: 48rpx;
+  right: 31.25rpx;
+  overflow: hidden;
+  top: 31.25rpx;
+}
+
+.attr-pop .close .icon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.attr-pop .img-info {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20rpx;
+}
+
+.attr-pop .img-info .img-wrap {
+  min-width: 160rpx;
+  height: 160rpx;
+  margin-right: 20rpx;
+}
+.no-more {
+  height: 100rpx;
+  line-height: 100rpx;
+  padding-bottom: 100rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #666;
+}
+.show-more {
+  height: 100rpx;
+  line-height: 100rpx;
+  padding-bottom: 100rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #52a9e2;
+}
+.btn-publish {
+  padding-left: 300rpx;
+  width: 100rpx;
+}
