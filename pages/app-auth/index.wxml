@@ -10,6 +10,37 @@
         <image src='/images/icon/weixin-w.png' class='img-w'></image>
         <view class='text'>微信快捷登录</view>
     </button>
+     <view class='login'>或者用户登录以继续使用</view>
+    <button class='btn-login' bindtap="showLoginDialog">
+        <image src='/images/icon/weixin-w.png' class='img-w'></image>
+        <view class='text'>eBook账号密码</view>
+    </button>
     <view class="cancel" bindtap="goBack">取消</view>
+    <van-popup show="{{ show }}" bind:close="onClose" custom-style="height: 50%;width: 80%;">
+        <view>
+            <text>ebook账号密码登录</text>
+        </view>
+        <van-cell-group>
+            <van-field
+                value="{{ username }}"
+                required
+                clearable
+                bind:change="userNameChange"
+                label="用户名"
+                placeholder="请输入用户名"
+                bind:click-icon="onClickIcon"
+            />
+            <van-field
+                value="{{ password }}"
+                type="password"
+                label="密码"
+                bind:change="passwordChange"
+                placeholder="请输入密码"
+                required
+                border="{{ false }}"
+            />
+             <button type="primary" bindtap="loginByAccount">登录</button>
+        </van-cell-group>
+    </van-popup>
 </view>
 

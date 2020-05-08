@@ -106,33 +106,18 @@ toUserComment: function(event) {
     this.setData({
         userInfo: userInfo,
     },()=>{
-        this.getUserInfo()
+        if(userInfo != null && userInfo != undefined && userInfo != ''){
+            this.getUserInfo()
+        }
     });
     wx.removeStorageSync('categoryId');
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
   onHide: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload: function () {
 
   },
   onPullDownRefresh: function () {
-    let that = this;
-    util.request(api.OrderCountInfo).then(function(res) {
-        if (res.errno === 0) {
-            let status = res.data;
-            that.setData({
-                status: status
-            });
-        }
-    });
   },
 })

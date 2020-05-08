@@ -1,4 +1,5 @@
 <!--pages/ucenter/index/index.wxml-->
+<wxs src='../../../utils/tool.wxs' module='tool'/>
 <view class="container">
     <view class="userinfo">
         <view class='head-wrap' wx:if="{{hasUserInfo == 0}}" bindtap='goAuth'>
@@ -12,7 +13,7 @@
         <view class='head-wrap' wx:else bindtap='goProfile'>
             <view class="head-l">
                 <view class='l'>
-                    <image class='avatar' src="{{userInfo.avatarUrl}}"></image>
+                    <image class='avatar' src="{{tool.imgUrlFormat(userInfo.avatarUrl)}}"></image>
                 </view>
                 <view class='r'>
                     <view class='t'>

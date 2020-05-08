@@ -1,10 +1,6 @@
 <wxs src='../../utils/tool.wxs' module='tool'/>
 <!--index.wxml-->
 <view class="container" wx:if="{{loading == 1}}">
-    <view class="search" bindtap="goSearch">
-            <image class="icon" src="/images/icon/search.png"></image>
-          <text class="txt">搜索, 共1000款图书</text>
-        </view>
         <view class='banner-wrap' wx:if="{{banner.length > 0}}">
         <swiper class="banner" indicator-dots="true" autoplay="{{autoplay}}" interval="3000" duration="1000">
             <swiper-item wx:for="{{banner}}" wx:key="id">
@@ -40,24 +36,28 @@
   </van-tab>
   <van-tab title="热门帖子">
     <view style="padding-top: 10rpx;">
-        <van-skeleton
-            title
-            avatar
-            row="1"
-            loading="{{postLoading}}"
-            >
-            <view class="post-preview" wx:if="{{hotPost.length > 0}}" wx:for="{{hotPost}}" wx:key="id">
-               <image src="{{tool.imgUrlFormat(item.user.avatarUrl)}}"></image>
-               <view class="post-content">
-                 <view>
-                    <text>{{item.title}}</text>
-                 </view>
-                 <text class="post-info">{{item.commentCount}}个回复• </text>
-                 <text class="post-info">{{item.viewCount}}次浏览• </text>
-                 <text class="post-info">{{tool.dateFormat(item.gmtCreate,"yyyy-MM-dd hh:mm")}}</text>
-               </view>
-            </view>
-        </van-skeleton>
+        <view wx:for="{{hotPost}}" wx:key="id" wx:if="{{hotPost.length > 0}}">
+         <navigator hover-class='none' class='navi-url' url="/pages/post/post?id={{item.id}}">
+            <van-skeleton
+                title
+                avatar
+                row="1"
+                loading="{{postLoading}}"
+                >
+                <view class="post-preview">
+                <image src="{{tool.imgUrlFormat(item.user.avatarUrl)}}"></image>
+                <view class="post-content">
+                    <view>
+                        <text>{{item.title}}</text>
+                    </view>
+                    <text class="post-info">{{item.commentCount}}个回复• </text>
+                    <text class="post-info">{{item.viewCount}}次浏览• </text>
+                    <text class="post-info">{{tool.dateFormat(item.gmtCreate,"yyyy-MM-dd hh:mm")}}</text>
+                </view>
+                </view>
+            </van-skeleton>
+             </navigator>
+        </view>
     </view>
   </van-tab>
   <van-tab title="公告">

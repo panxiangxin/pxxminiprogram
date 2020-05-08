@@ -1,6 +1,6 @@
 //index.js
 import { request } from '../../utils/util';
-import { getHotBook, getHotPost,getHotBookTag,getHotPostTag,getAnnounce } from '../../config/api';
+import { BookCount,getHotBook, getHotPost,getHotBookTag,getHotPostTag,getAnnounce } from '../../config/api';
 var WxParse = require('../../lib/wxParse/wxParse.js');
 //获取应用实例
 const app = getApp()
@@ -14,6 +14,7 @@ Page({
     hotPostTag: [],
     announces: [],
     sysHeight: 0,
+    bookCount: 0,
     loading: 0,
     bookTagLoading: 0,
     postTagLoading: 0,
@@ -90,6 +91,16 @@ Page({
        }
     });
   },
+  getBookCount() {
+    let that = this;
+    request(BookCount).then(function (res) {
+      if (res.success) {
+        that.setData({
+          bookCount: res.data
+        })
+      }
+    })
+  },
   onLoad: function (options) {
     let systemInfo = wx.getStorageSync('systemInfo');
     var scene = decodeURIComponent(options.scene);
@@ -100,6 +111,7 @@ Page({
     })
 },
   onShow: function () {
+    this.getBookCount();
    this.getHotBook();
    this.getHotPost();
    this.getHotPostTag();

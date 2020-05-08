@@ -2,7 +2,26 @@
  * 用户相关服务
  */
 import { login, getUserInfo, request, checkSession } from '../utils/util.js';
-import { AuthLoginByWeiXin } from '../config/api.js';
+import { AuthLoginByWeiXin,AuthLoginByAccount} from '../config/api.js';
+
+function loginByAccount(username, password) {
+    return new Promise(function(resolve, reject) {
+        return request(AuthLoginByAccount, {
+            userName: username,
+            password: password
+        },'POST').then((res) => {
+            if (res.success) {
+                wx.setStorageSync('userInfo', res.data.user);
+                wx.setStorageSync('token', res.data.token);
+                resolve(res);
+            } else {
+                reject(res);
+            }
+        }).catch((err) => {
+            reject(err);
+        });
+    })
+}
 /**
  * 调用微信登录
  */
@@ -71,6 +90,7 @@ function authorizeInfo() {
 
 module.exports = {
   loginByWeixin,
+  loginByAccount,
   checkLogin,
   authorizeInfo
 };

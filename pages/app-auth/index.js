@@ -1,35 +1,22 @@
 // pages/app-auth/index.js
 import { showErrorToast, redirect } from '../../utils/util.js';
-import { loginByWeixin } from '../../services/user.js';
+import { loginByWeixin, loginByAccount} from '../../services/user.js';
 
 const app = getApp()
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    show: false,
+    username: '',
+    password: '',
+    status: 0
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function () {
-
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
   onReady: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     let userInfo = wx.getStorageSync('userInfo');
   //   if(userInfo != '') {
@@ -44,37 +31,81 @@ Page({
         wx.navigateBack()
     }).catch(() => {});
 },
+showLoginDialog: function () {
+   this.setData({
+     show: true
+   })
+},
+onClose() {
+  this.setData({ show: false });
+},
+userNameChange: function (event) {
+  let userName = event.detail;
+  let password = this.data.password;
+  if (userName == '') {
+    this.setData({
+      status: 0
+    })
+  } else if (userName != '' && password == '') {
+    this.setData({
+      username: userName,
+      status: 0
+    })
+  } else {
+  this.setData({
+    username: userName,
+    status: 1
+  })
+}
+},
+passwordChange: function (event) {
+  let password = event.detail;
+  let userName = this.data.username;
+
+  if(password == '') {
+    this.setData({
+      status: 0
+    })
+  } else if(password != '' && userName == '') {
+    this.setData({
+      password: password,
+      status: 0
+    })
+  } else {
+    this.setData({
+      password: password,
+      status: 1
+    })
+  }
+},
+loginByAccount: function () {
+  let userName = this.data.username;
+  let password = this.data.password;
+
+  if(this.data.status != 0) {
+    loginByAccount(userName,password).then((res)=>{
+     if(res.success) {
+       console.log('login success!')
+       wx.navigateBack()
+     } else {
+       showErrorToast(res.message)
+     }
+    }).catch(() => {});
+  } else {
+    showErrorToast('用户名密码不能为空');
+  }
+},
 goBack:function(){
     wx.navigateBack();
 },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
   onHide: function () {
-
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload: function () {
-
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
   onPullDownRefresh: function () {
-
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom: function () {
-
   },
   onShareAppMessage: function () {
-
   }
 })

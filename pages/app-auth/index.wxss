@@ -1,6 +1,8 @@
 /* pages/app-auth/index.wxss */
-/* pages/app-authorization/index.wxss */
-
+.btn-login {
+ padding-top: 10rpx;
+ margin-left: 250rpx;
+}
 .container {
   background-color: #fff;
   min-height: 100%;
