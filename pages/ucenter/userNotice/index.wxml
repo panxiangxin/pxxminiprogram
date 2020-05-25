@@ -6,7 +6,7 @@
             <block wx:if="{{loading == 1}}">
                 <view class='list-wrap clearfix'>
                    <view wx:for="{{notice}}" wx:key="id">
-                   <navigator wx:if="{{item.type == 1}}" hover-class='none' url="/pages/books/books?id={{item.outerid}}" data-status="{{item.status}}" data-id="{{item.outerid}}" bindtap="read">
+                   <navigator wx:if="{{item.type == 1}}" hover-class='none' url="/pages/books/books?id={{item.outerid}}" data-status="{{item.status}}" data-id="{{item.id}}" bindtap="read">
                           <view class="post-preview">
                                   <view class="post-content">
                                     <view>
@@ -18,7 +18,7 @@
                                   </view>
                                 </view>
                          </navigator>
-                         <navigator wx:if="{{item.type == 2}}" hover-class='none' url="/pages/books/books?id={{item.outerid}}" data-status="{{item.status}}" data-id="{{item.outerid}}" bindtap="read">
+                         <navigator wx:if="{{item.type == 2}}" hover-class='none' url="/pages/books/books?id={{item.outerid}}" data-status="{{item.status}}" data-id="{{item.id}}" bindtap="read">
                           <view class="post-preview">
                                   <view class="post-content">
                                     <view>
@@ -30,7 +30,7 @@
                                   </view>
                                 </view>
                          </navigator>
-                        <navigator wx:if="{{item.type == 3}}" hover-class='none' url="/pages/post/post?id={{item.outerid}}" data-status="{{item.status}}" data-id="{{item.outerid}}" bindtap="read">
+                        <navigator wx:if="{{item.type == 3}}" hover-class='none' url="/pages/post/post?id={{item.outerid}}" data-status="{{item.status}}" data-id="{{item.id}}" bindtap="read">
                           <view class="post-preview">
                                   <view class="post-content">
                                     <view>
@@ -42,7 +42,7 @@
                                   </view>
                                 </view>
                          </navigator>
-                          <navigator wx:if="{{item.type == 4}}" hover-class='none' url="/pages/post/post?id={{item.outerid}}" data-status="{{item.status}}" data-id="{{item.outerid}}" bindtap="read">
+                          <navigator wx:if="{{item.type == 4}}" hover-class='none' url="/pages/post/post?id={{item.outerid}}" data-status="{{item.status}}" data-id="{{item.id}}" bindtap="read">
                           <view class="post-preview">
                                   <view class="post-content">
                                     <view>

@@ -493,7 +493,7 @@
     /* border-top:1px solid #eee;  */
     background-color: #fff;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     z-index: 10;
 }
 
@@ -502,7 +502,7 @@
     justify-content: space-around;
     background: #fafafa;
     padding: 0 20rpx;
-    width: 40%;
+    width: 50%;
     box-sizing: border-box;
 }
 
@@ -533,13 +533,8 @@
     /* margin-bottom: 26rpx; */
 }
 
-.cart-add-box .l .left-icon {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding-top: 10rpx;
-    margin-top: 4rpx;
+.cart-add-box .left-icon {
+    width: 55%;
 }
 
 .contact-button {
@@ -563,7 +558,7 @@
 
 .cart-add-box .to-cart-btn {
     height: 110rpx;
-    width: 40%;
+    width: 50%;
     line-height: 100rpx;
     color: #192841;
     background: linear-gradient(to right, #f8cd4e, #fae277); /* 标准的语法（必须放在最后） */
@@ -574,7 +569,7 @@
 
 .cart-add-box .to-pay-btn {
     height: 110rpx;
-    width: 40%;
+    width: 50%;
     line-height: 100rpx;
     color: #fff;
     background: -webkit-linear-gradient(left, #fdbb43, #ff347d); /* Safari 5.1 - 6.0 */

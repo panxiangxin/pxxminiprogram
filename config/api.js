@@ -1,5 +1,5 @@
-const ApiRootUrl = 'http://localhost:8081/';
-
+// const ApiRootUrl = 'http://localhost:8081/';
+const ApiRootUrl = 'http://panxx.natapp1.cc/';
 module.exports = {
   //登录
   AuthLoginByWeiXin: ApiRootUrl + 'user/loginByWeiXin',

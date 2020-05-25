@@ -7,7 +7,6 @@ Page({
       userInfo: {},
       loading: 0,
       notice: []
-     
   },
   getUserNotice: function () {
     let that = this;
